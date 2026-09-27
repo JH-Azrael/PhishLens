@@ -1,0 +1,9 @@
+From: security@paypa1-support.com
+Subject: URGENT - Account Suspended
+
+Your account has been suspended.
+
+You must verify your account immediately.
+
+Click here to verify your password:
+http://paypa1-security.com/login
