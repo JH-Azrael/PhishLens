@@ -1,11 +1,13 @@
-#Version 1.0 
-#Author Jonathan Hall, Samuel Remp, Cole Crandall
+# Version 1.1 
+
+from url_scanner import analyze_urls
+
 
 def analyze_email(email):
     score = 0
     findings = []
 
-    suspicious_words = [
+    suspicious_phrases = [
         "urgent",
         "verify your account",
         "password",
@@ -16,21 +18,40 @@ def analyze_email(email):
 
     email_lower = email.lower()
 
-    for word in suspicious_words:
-        if word in email_lower:
-            findings.append("Suspicious phrase found: " + word)
+    # Analyze email language
+    for phrase in suspicious_phrases:
+        if phrase in email_lower:
+            findings.append(
+                f"Suspicious phrase found: {phrase}"
+            )
             score += 10
 
-    print("\n--- PhishLens Report ---")
+    # Analyze URLs
+    url_findings, url_score = analyze_urls(email)
 
-    for finding in findings:
-        print("[!] " + finding)
+    findings.extend(url_findings)
+    score += url_score
 
-    print("\nRisk Score:", score)
+    # Keep score between 0 and 100
+    score = min(score, 100)
 
-    if score >= 40:
+    print("\n==============================")
+    print("       PHISHLENS REPORT")
+    print("==============================")
+
+    if findings:
+        for finding in findings:
+            print("\n[!] " + finding)
+    else:
+        print("[+] No obvious phishing indicators detected.")
+
+    print("\nRisk Score:", str(score) + "/100")
+
+    if score >= 60:
         print("Risk Level: HIGH")
-    elif score >= 20:
+    elif score >= 30:
         print("Risk Level: MEDIUM")
     else:
         print("Risk Level: LOW")
+
+    print("==============================")

@@ -1,0 +1,17 @@
+From: Microsoft Security <security@microsoft-support-alert.com>
+Subject: URGENT - Account Suspended
+
+Your Microsoft account has been suspended.
+
+You must verify your account immediately to prevent permanent
+account deletion.
+
+Click here to verify your password:
+
+http://192.168.50.20/secure/login/account
+
+Failure to verify your account immediately will result in your
+account being permanently disabled.
+
+Attachment:
+AccountVerification.zip
