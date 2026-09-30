@@ -1,8 +1,57 @@
-# Version 1.1
+# Updated for Version 1.2
 
 import re
 import ipaddress
 from urllib.parse import urlparse
+
+
+TRUSTED_DOMAINS = {
+    "microsoft": [
+        "microsoft.com",
+        "microsoftonline.com"
+    ],
+    "google": [
+        "google.com"
+    ],
+    "paypal": [
+        "paypal.com"
+    ],
+    "amazon": [
+        "amazon.com"
+    ],
+    "apple": [
+        "apple.com"
+    ],
+    "rit": [
+        "rit.edu"
+    ]
+}
+
+def check_domain_impersonation(domain):
+    findings = []
+    score = 0
+
+    for organization, trusted_domains in TRUSTED_DOMAINS.items():
+
+        for trusted_domain in trusted_domains:
+
+            #Trusted name appears in the hostname
+            if trusted_domain in domain:
+
+                #hostname is not actually that trusted domain
+                if (
+                    domain != trusted_domain
+                    and not domain.endswith("." + trusted_domain)
+                ):
+                    findings.append(
+                        f"Possible {organization.upper()} impersonation: "
+                        f"{trusted_domain} appears inside the hostname "
+                        f"{domain}"
+                    )
+
+                    score += 25
+
+    return findings, score
 
 
 def is_valid_ip(ip_string):
@@ -44,6 +93,12 @@ def analyze_urls(email):
             continue
 
         domain = domain.lower()
+
+        # Check for domain impersonation
+        impersonation_findings, impersonation_score = check_domain_impersonation(domain)
+
+        findings.extend(impersonation_findings)
+        score += impersonation_score
 
         # Check if the URL directly uses an IP address
         if is_valid_ip(domain):

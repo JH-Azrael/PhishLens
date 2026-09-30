@@ -1,11 +1,18 @@
-# Version 1.1 
+# Updated for Version 1.2
 
 from url_scanner import analyze_urls
-
+from sender_scanner import analyze_sender
 
 def analyze_email(email):
     score = 0
     findings = []
+    
+    sender_findings, sender_score = analyze_sender(email)
+
+    findings.extend(sender_findings)
+    score += sender_score
+
+#--------------------------------------------------#
 
     suspicious_phrases = [
         "urgent",
